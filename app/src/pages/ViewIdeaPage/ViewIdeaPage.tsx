@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom"
+import { VievIdeaRouteParams } from "../../lib/routes"
 
 export const ViewIdeaPage = () => {
-  const {ideaNIck}=useParams() as {ideaNIck:string};
+  const {ideaNIck}=useParams() as VievIdeaRouteParams
 
   return( <div>
     <h1>{ideaNIck}</h1>
