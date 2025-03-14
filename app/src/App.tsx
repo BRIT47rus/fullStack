@@ -1,9 +1,11 @@
+import { TrpcProvider } from './lib/trpc'
+import { AllIdeasPage } from './pages/AllIdeasPage/AllIdeasPage'
 
 function App() {
-
-
   return (
-   <h1>hell</h1>
+    <TrpcProvider>
+      <AllIdeasPage />
+    </TrpcProvider>
   )
 }
 
