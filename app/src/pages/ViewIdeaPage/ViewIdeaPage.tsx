@@ -1,16 +1,24 @@
-import { useParams } from "react-router-dom"
-import { VievIdeaRouteParams } from "../../lib/routes"
+import { useParams } from 'react-router-dom'
+import { VievIdeaRouteParams } from '../../lib/routes'
+import { trpc } from '../../lib/trpc'
 
 export const ViewIdeaPage = () => {
-  const {ideaNIck}=useParams() as VievIdeaRouteParams
+  const { ideaNick } = useParams() as VievIdeaRouteParams
 
-  return( <div>
-    <h1>{ideaNIck}</h1>
-    <p>Description 1</p>
+  const { data, error, isLoading, isFetching, isError } = trpc.getIdea.useQuery({
+    ideaNick,
+  })
+  if (isLoading || isFetching) return <span>Loading..</span>
+  if (isError) return <span>Error:{error.message}</span>
+  if (!data.idea) {
+    return <span>Idea not found</span>
+  }
+
+  return (
     <div>
-        <p>Text paragrag 1</p>
-        <p>Text paragrag 2</p>
-        <p>Text paragrag 3</p>
+      <h1>{data.idea.name}</h1>
+      <p>{data.idea.description} </p>
+      <div dangerouslySetInnerHTML={{ __html: data.idea.text }} />
     </div>
-  </div>)
+  )
 }

@@ -14,7 +14,7 @@ export const AllIdeasPage = () => {
         data.ideas.map((idea) => (
           <div key={idea.nick}>
             <h2>
-              <Link to={getViewIdeaRoute({ ideaNIck: idea.nick })}>{idea.name}</Link>
+              <Link to={getViewIdeaRoute({ ideaNick: idea.nick })}>{idea.name}</Link>
             </h2>
             <p>{idea.description}</p>
           </div>
