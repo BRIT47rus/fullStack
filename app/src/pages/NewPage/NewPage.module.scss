@@ -1,0 +1,6 @@
+@import '../../stylles/_vars.scss';
+@import '../../stylles/_mixins.scss';
+
+.title {
+  @include h1;
+}

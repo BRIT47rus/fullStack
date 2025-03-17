@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { VievIdeaRouteParams } from '../../lib/routes';
 import { trpc } from '../../lib/trpc';
 import css from './index.module.scss';
+import { Segment } from '../../components/Segment/Segment';
 
 export const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as VievIdeaRouteParams
@@ -16,10 +17,8 @@ export const ViewIdeaPage = () => {
   }
 
   return (
-    <div>
-    <h1 className={css.title}>{data.idea.name}</h1>
-    <p className={css.description}>{data.idea.description}</p>
+    <Segment title={data.idea.name} description={data.idea.description}>
     <div className={css.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
-  </div>
+  </Segment>
   )
 }

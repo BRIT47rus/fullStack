@@ -6,3 +6,5 @@ export type VievIdeaRouteParams= typeof viewIdeaRouteParams
 
 export const getAllIdeasRoute = () => '/';
 export const getViewIdeaRoute = ({ ideaNick }:VievIdeaRouteParams) => `/ideas/${ideaNick}`
+
+export const addNewIdeaRoute = ()=>'ideas/new';
