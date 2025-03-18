@@ -2,6 +2,9 @@ import { Segment } from '../../components/Segment/Segment'
 import { Input } from '../../components/Input/Input';
 import { Textarea } from '../../components/TextArea/TextArea';
 import {  useFormik } from 'formik';
+
+import {z} from 'zod';
+import {withZodSchema}from 'formik-validator-zod'
 export type StateInput ={
   name: string;
   nick: string;
@@ -18,26 +21,17 @@ export const NewPage = () => {
       description: '',
       text: '',
     },
-    validate: (values) => {
-      const errors: Partial<typeof values> = {}
-      if (!values.name) {
-        errors.name = 'Name is required'
-      }
-      if (!values.nick) {
-        errors.nick = 'Nick is required'
-      } else if (!values.nick.match(/^[a-z0-9-]+$/)) {
-        errors.nick = 'Nick may contain only lowercase letters, numbers and dashes'
-      }
-      if (!values.description) {
-        errors.description = 'Description is required'
-      }
-      if (!values.text) {
-        errors.text = 'Text is required'
-      } else if (values.text.length < 100) {
-        errors.text = 'Text should be at least 100 characters long'
-      }
-      return errors
-    },
+    validate: withZodSchema(
+      z.object({
+        name:z.string().min(2,'Нужно больше 1го символа'),
+        nick:z.string().min(1).regex(/^[a-z0-9-]+$/,'Nick may contain only lowercase letters, numbers and dashes'),
+        description:z.string().min(1),
+        text:z.string().min(10,'минимум 10 символов')
+
+      })
+    ),
+
+
     onSubmit:(values)=>{
       console.info('Submitted', values)
     }
@@ -57,7 +51,7 @@ export const NewPage = () => {
         <Input name="description" label="Description"  formik={formik}  />
         <Textarea name="text" label="Text"  formik={formik}  />
         <button type='submit'>Create idea</button>
-        {!formik.isValid && <div style={{ color: 'red' }}>Some fields are invalid</div>}
+        {!formik.isValid &&  <div style={{ color: 'red' }}>Some fields are invalid</div>}
       </form>
     </Segment>
   )
