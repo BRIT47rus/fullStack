@@ -1,6 +1,8 @@
+
+import classNames from "classnames";
 import { InputProps } from "../types/types"
 
-
+import cls from './TextArea.module.scss';
 
 export const Textarea = ({
     name,
@@ -11,9 +13,13 @@ export const Textarea = ({
     const error = formik.errors[name] as string | undefined;
     const touched = formik.touched[name];
 
+    const invalid = !!touched && !!error
+    const disabled = formik.isSubmitting
+
     return (
-      <div style={{ marginBottom: 10 }}>
-        <label htmlFor={name}>{label}</label>
+      <div 
+      className={classNames({ [cls.field]: true, [cls.disabled]: disabled })}>
+        <label htmlFor={name} className={cls.label}>{label}</label>
         <br />
         <textarea
           onChange={(e) => {
@@ -27,7 +33,7 @@ export const Textarea = ({
           id={name}
           disabled={formik.isSubmitting}
         />
-         {!!touched && !!error && <div style={{ color: 'red' }}>{error}</div>}
+         {invalid && <div style={{ color: 'red' }}>{error}</div>}
       </div>
     )
   }
