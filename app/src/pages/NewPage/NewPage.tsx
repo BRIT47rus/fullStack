@@ -8,6 +8,8 @@ import { trpc } from '../../lib/trpc'
 import { zCreateIdeaTrpsInput } from '@fullStack/backend/src/router/createIdea/input'
 import { ErrorInfo, useState } from 'react'
 import { Alert } from '../../components/Alert/Alert'
+import { Button } from '../../components/Button/Button'
+import { FormItems } from '../../components/FormItems/FormItems'
 export type StateInput = {
   name: string
   nick: string
@@ -54,6 +56,7 @@ export const NewPage = () => {
           formik.handleSubmit()
         }}
       >
+        <FormItems>
         <Input name="name" label="Name" formik={formik} />
         <Input name="nick" label="Nick" formik={formik} />
         <Input name="description" label="Description" formik={formik} maxWidth={500} />
@@ -62,9 +65,8 @@ export const NewPage = () => {
 
         {!!submittingError && <Alert color="red">{submittingError}</Alert>}
         {succesVisibleMessage && <Alert color="green">Idea created!</Alert>}
-        <button type="submit" disabled={formik.isSubmitting}>
-          {formik.isSubmitting ? 'Submitting...' : 'Create idea'}
-        </button>
+        <Button loading={formik.isSubmitting}>Create Idea</Button>
+        </FormItems>
       </form>
     </Segment>
   )
