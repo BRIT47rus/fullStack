@@ -10,7 +10,7 @@
     "types": "tsc --noEmit --project ./tsconfig.json",
     "pmd": "prisma migrate dev",
     "pgc": "prisma generate",
-     "prepare": "pnpm pgc",
+    "prepare": "pnpm pgc",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts ."
   },
   "prisma": {
@@ -30,6 +30,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
+    "superjson": "^1.13.1",
     "zod": "^3.22.2"
   }
 }

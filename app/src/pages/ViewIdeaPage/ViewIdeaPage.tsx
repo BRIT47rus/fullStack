@@ -1,8 +1,9 @@
-import { useParams } from 'react-router-dom';
-import { VievIdeaRouteParams } from '../../lib/routes';
-import { trpc } from '../../lib/trpc';
-import css from './index.module.scss';
-import { Segment } from '../../components/Segment/Segment';
+import { useParams } from 'react-router-dom'
+import { VievIdeaRouteParams } from '../../lib/routes'
+import { trpc } from '../../lib/trpc'
+import css from './index.module.scss'
+import { Segment } from '../../components/Segment/Segment'
+import { format } from 'date-fns'
 
 export const ViewIdeaPage = () => {
   const { ideaNick } = useParams() as VievIdeaRouteParams
@@ -18,7 +19,8 @@ export const ViewIdeaPage = () => {
 
   return (
     <Segment title={data.idea.name} description={data.idea.description}>
-    <div className={css.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
-  </Segment>
+      <div className={css.createAt}>Create at: {format(data.idea.createdAt, 'yyyy-MM-dd')}</div>
+      <div className={css.text} dangerouslySetInnerHTML={{ __html: data.idea.text }} />
+    </Segment>
   )
 }
